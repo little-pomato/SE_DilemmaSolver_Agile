@@ -17,6 +17,14 @@ namespace MoodPicker
         public Mode2_AddList()
         {
             InitializeComponent();
+            string filePath = "list.txt";
+            LoadTreeViewFromTextFile(filePath);
+
+            // 顯示調整
+            treeView1.DrawMode = TreeViewDrawMode.OwnerDrawText;
+            treeView1.DrawNode += treeView1_DrawNode;
+            treeView1.ItemHeight = 28;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,6 +100,74 @@ namespace MoodPicker
             catch (Exception ex)
             {
                 MessageBox.Show($"讀取檔案時發生錯誤: {ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            bool isParent = (e.Node.Parent == null);
+
+            // 字體
+            Font nodeFont = isParent
+                ? new Font("微軟正黑體", 10, FontStyle.Bold)
+                : new Font("微軟正黑體", 9, FontStyle.Regular);
+
+            Color textColor = isParent ? Color.DarkBlue : Color.Black;
+
+            // 留白
+            Rectangle nodeBounds = e.Bounds;
+            nodeBounds.Width += 4; // 加寬
+
+            // 文字
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Node.Text,
+                nodeFont,
+                nodeBounds,
+                textColor,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+            );
+
+            e.DrawDefault = false; // 關預設
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // 是否有選中
+            if (treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("請先選取一個類別！");
+                return;
+            }
+
+            TreeNode selected = treeView1.SelectedNode;
+
+            // 確保選到的是類別
+            if (selected.Parent != null)
+            {
+                MessageBox.Show("請選取一個類別，而不是項目！");
+                return;
+            }
+            // 收集子項
+            List<string> items = new List<string>();
+            foreach (TreeNode child in selected.Nodes)
+            {
+                items.Add(child.Text);
+            }
+
+            // 跳到Mode2_ChooseRandom 傳入資料
+            Mode2_ChooseRandom nextPage = new Mode2_ChooseRandom(selected.Text, items);
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Controls.Clear();
+                nextPage.Dock = DockStyle.Fill;
+                parentForm.Controls.Add(nextPage);
             }
         }
     }
