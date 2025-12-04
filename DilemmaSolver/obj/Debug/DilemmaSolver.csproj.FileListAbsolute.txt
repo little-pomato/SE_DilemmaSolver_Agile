@@ -7,7 +7,6 @@ D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.MainForm.reso
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Mode2_AddList.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Mode2_ChooseRandom.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Mode2_Result.resources
-D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Program.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Properties.Resources.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.MainPage.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.csproj.GenerateResource.cache
@@ -15,3 +14,4 @@ D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.csproj.CoreCo
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.exe
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.pdb
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.exe.config
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.TestAddListForm.resources

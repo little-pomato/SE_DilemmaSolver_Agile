@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DilemmaSolver
 {
-    // 為了測試Mode2_AddList
+    ////為了測試Mode2_AddList
     //public class TestAddListForm : Form
     //{
     //    public TestAddListForm()
