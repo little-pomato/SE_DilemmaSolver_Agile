@@ -40,18 +40,19 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("宋体", 12F);
-            this.button7.Location = new System.Drawing.Point(1154, 502);
+            this.button7.Location = new System.Drawing.Point(1108, 642);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(134, 48);
             this.button7.TabIndex = 13;
             this.button7.Text = "繼續";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 20F);
-            this.label1.Location = new System.Drawing.Point(366, 439);
+            this.label1.Location = new System.Drawing.Point(331, 484);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(185, 34);
             this.label1.TabIndex = 14;
@@ -60,7 +61,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("宋体", 20F);
-            this.textBox1.Location = new System.Drawing.Point(557, 436);
+            this.textBox1.Location = new System.Drawing.Point(522, 481);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(269, 46);
             this.textBox1.TabIndex = 15;
@@ -78,7 +79,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("宋体", 12F);
-            this.button1.Location = new System.Drawing.Point(907, 434);
+            this.button1.Location = new System.Drawing.Point(872, 479);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(134, 48);
             this.button1.TabIndex = 17;
@@ -87,7 +88,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(465, 143);
+            this.pictureBox1.Location = new System.Drawing.Point(430, 188);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(390, 183);
             this.pictureBox1.TabIndex = 18;
@@ -105,7 +106,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button7);
             this.Name = "Mode2_Result";
-            this.Size = new System.Drawing.Size(1343, 578);
+            this.Size = new System.Drawing.Size(1280, 720);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

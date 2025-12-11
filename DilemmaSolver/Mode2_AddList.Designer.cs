@@ -33,15 +33,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button9 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -64,7 +59,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("宋体", 12F);
-            this.button2.Location = new System.Drawing.Point(606, 134);
+            this.button2.Location = new System.Drawing.Point(590, 433);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(151, 58);
@@ -76,7 +71,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("宋体", 12F);
-            this.button3.Location = new System.Drawing.Point(868, 134);
+            this.button3.Location = new System.Drawing.Point(795, 433);
             this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(151, 58);
@@ -87,30 +82,19 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(606, 341);
+            this.textBox1.Location = new System.Drawing.Point(735, 359);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(450, 29);
             this.textBox1.TabIndex = 6;
             // 
-            // button4
-            // 
-            this.button4.Font = new System.Drawing.Font("宋体", 12F);
-            this.button4.Location = new System.Drawing.Point(955, 392);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(101, 40);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "確認";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("宋体", 12F);
-            this.button5.Location = new System.Drawing.Point(1133, 134);
+            this.button5.Location = new System.Drawing.Point(1202, 698);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(151, 58);
+            this.button5.Size = new System.Drawing.Size(167, 58);
             this.button5.TabIndex = 8;
             this.button5.Text = "選擇此清單";
             this.button5.UseVisualStyleBackColor = true;
@@ -128,91 +112,45 @@
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("宋体", 12F);
-            this.button6.Location = new System.Drawing.Point(606, 488);
+            this.button6.Location = new System.Drawing.Point(1190, 433);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(151, 58);
             this.button6.TabIndex = 11;
-            this.button6.Text = "刪除種類";
+            this.button6.Text = "刪除";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Font = new System.Drawing.Font("宋体", 12F);
-            this.button7.Location = new System.Drawing.Point(868, 488);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(151, 58);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "刪除選項";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("宋体", 12F);
-            this.button8.Location = new System.Drawing.Point(1133, 488);
+            this.button8.Location = new System.Drawing.Point(995, 433);
             this.button8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(151, 58);
             this.button8.TabIndex = 13;
-            this.button8.Text = "修改選項";
+            this.button8.Text = "修改";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 20F);
-            this.label2.Location = new System.Drawing.Point(600, 594);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(217, 40);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "請修改選項";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(606, 682);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(450, 29);
-            this.textBox2.TabIndex = 15;
-            // 
-            // button9
-            // 
-            this.button9.Font = new System.Drawing.Font("宋体", 12F);
-            this.button9.Location = new System.Drawing.Point(955, 732);
-            this.button9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(101, 40);
-            this.button9.TabIndex = 16;
-            this.button9.Text = "確認";
-            this.button9.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 20F);
-            this.label1.Location = new System.Drawing.Point(600, 248);
+            this.label1.Location = new System.Drawing.Point(657, 261);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(477, 40);
+            this.label1.Size = new System.Drawing.Size(597, 40);
             this.label1.TabIndex = 1;
-            this.label1.Text = "請輸入欲新增的種類/選項";
+            this.label1.Text = "請輸入欲新增或修改的種類/選項";
             // 
             // Mode2_AddList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.treeView1);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -220,7 +158,7 @@
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Mode2_AddList";
-            this.Size = new System.Drawing.Size(1550, 894);
+            this.Size = new System.Drawing.Size(1440, 864);
             this.Load += new System.EventHandler(this.Mode2_AddList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -234,15 +172,10 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label1;
     }
 }

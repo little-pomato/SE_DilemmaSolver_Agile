@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{282F3517-52E9-4550-89F2-163C016B0BCB}</ProjectGuid>
+    <ProjectGuid>{210F4570-C271-49DE-8789-CFDC6ECB3B0E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DilemmaSolver</RootNamespace>
     <AssemblyName>DilemmaSolver</AssemblyName>
@@ -52,23 +52,36 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mode2_ChooseRandom.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Mode2_ChooseRandom.Designer.cs">
-      <DependentUpon>Mode2_ChooseRandom.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Mode1_Models.cs" />
     <Compile Include="Mode2_AddList.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Mode2_AddList.Designer.cs">
       <DependentUpon>Mode2_AddList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mode2_ChooseRandom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mode2_ChooseRandom.Designer.cs">
+      <DependentUpon>Mode2_ChooseRandom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mode2_DiceScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mode2_DiceScreen.Designer.cs">
+      <DependentUpon>Mode2_DiceScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mode2_Result.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Mode2_Result.Designer.cs">
       <DependentUpon>Mode2_Result.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mode2_SpinWheelScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mode2_SpinWheelScreen.Designer.cs">
+      <DependentUpon>Mode2_SpinWheelScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,8 +103,32 @@
     <Compile Include="Mode1_EachMode.Designer.cs">
       <DependentUpon>Mode1_EachMode.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpinWheelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpinWheelControl.Designer.cs">
+      <DependentUpon>SpinWheelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Start.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Start.Designer.cs">
+      <DependentUpon>Start.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mode2_CoinScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Mode2_CoinScreen.Designer.cs">
+      <DependentUpon>Mode2_CoinScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mode1_ChooseMode.resx">
+      <DependentUpon>Mode1_ChooseMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mode1_EachMode.resx">
+      <DependentUpon>Mode1_EachMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Mode2_AddList.resx">
       <DependentUpon>Mode2_AddList.cs</DependentUpon>
@@ -99,11 +136,17 @@
     <EmbeddedResource Include="Mode2_ChooseRandom.resx">
       <DependentUpon>Mode2_ChooseRandom.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Mode2_CoinScreen.resx">
+      <DependentUpon>Mode2_CoinScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mode2_DiceScreen.resx">
+      <DependentUpon>Mode2_DiceScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mode2_Result.resx">
       <DependentUpon>Mode2_Result.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Program.resx">
-      <DependentUpon>Program.cs</DependentUpon>
+    <EmbeddedResource Include="Mode2_SpinWheelScreen.resx">
+      <DependentUpon>Mode2_SpinWheelScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -117,9 +160,16 @@
     <EmbeddedResource Include="MainPage.resx">
       <DependentUpon>MainPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SpinWheelControl.resx">
+      <DependentUpon>SpinWheelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Start.resx">
+      <DependentUpon>Start.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -131,9 +181,58 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="list.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Images\bookstore.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\card_back.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cleaning.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cooking.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\cycling.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dairy.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dessert.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\exotic_food.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\gaming.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\hot_cocoa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\instant_noodles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\jogging.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\movie.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\pizza.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\running.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\sushi.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\workout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="list.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

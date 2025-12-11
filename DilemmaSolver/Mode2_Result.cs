@@ -12,6 +12,7 @@ namespace DilemmaSolver
 {
     public partial class Mode2_Result: UserControl
     {
+        public event Action Switch_to_MainPage;
         public Mode2_Result()
         {
             InitializeComponent();
@@ -20,6 +21,11 @@ namespace DilemmaSolver
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Switch_to_MainPage?.Invoke();
         }
     }
 }
