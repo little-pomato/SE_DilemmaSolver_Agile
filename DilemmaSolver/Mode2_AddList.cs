@@ -14,11 +14,22 @@ namespace DilemmaSolver
 {
     public partial class Mode2_AddList: UserControl
     {
+        public event Action<string, List<string>> Switch_to_ChooseRandom;
+        public event Action Switch_to_MainPage;
+        private string filePath = Path.GetFullPath(
+            Path.Combine(Application.StartupPath, @"..\..\list.txt")
+        );
+
         public Mode2_AddList()
         {
             InitializeComponent();
-            string filePath = "list.txt";
+            //string filePath = "D:\\下載(C)\\SE_DilemmaSolver-Mode1_waterfall\\DilemmaSolver\\list.txt";
             LoadTreeViewFromTextFile(filePath);
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Add_list.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
             // 顯示調整
             treeView1.DrawMode = TreeViewDrawMode.OwnerDrawText;
@@ -29,20 +40,15 @@ namespace DilemmaSolver
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Switch_to_MainPage?.Invoke();
         }
 
         private void Mode2_AddList_Load(object sender, EventArgs e)
         {
-            string filePath = "list.txt";
+            //string filePath = "D:\\下載(C)\\SE_DilemmaSolver-Mode1_waterfall\\DilemmaSolver\\list.txt";
             LoadTreeViewFromTextFile(filePath);
 
             // AfterSelect 事件綁定 (+=)
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
         }
 
         private void LoadTreeViewFromTextFile(string filePath)
@@ -91,7 +97,7 @@ namespace DilemmaSolver
                 }
 
                 // 展開所有節點
-                treeView1.ExpandAll();
+                //treeView1.ExpandAll();
             }
             catch (FileNotFoundException)
             {
@@ -101,6 +107,26 @@ namespace DilemmaSolver
             {
                 MessageBox.Show($"讀取檔案時發生錯誤: {ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void SaveTreeViewToTextFile()
+        {
+            List<string> lines = new List<string>();
+
+            foreach (TreeNode parent in treeView1.Nodes)
+            {
+                List<string> parts = new List<string>();
+                parts.Add(parent.Text);
+
+                foreach (TreeNode child in parent.Nodes)
+                {
+                    parts.Add(child.Text);
+                }
+
+                lines.Add(string.Join(" ", parts));
+            }
+
+            File.WriteAllLines(filePath, lines);
         }
 
         private void treeView1_DrawNode(object sender, DrawTreeNodeEventArgs e)
@@ -154,21 +180,145 @@ namespace DilemmaSolver
                 return;
             }
             // 收集子項
+
             List<string> items = new List<string>();
             foreach (TreeNode child in selected.Nodes)
             {
                 items.Add(child.Text);
             }
 
+            string selectedText = treeView1.SelectedNode.Text;
+            Switch_to_ChooseRandom?.Invoke(selectedText, items);
+
             // 跳到Mode2_ChooseRandom 傳入資料
-            Mode2_ChooseRandom nextPage = new Mode2_ChooseRandom(selected.Text, items);
+            /*Mode2_ChooseRandom nextPage = new Mode2_ChooseRandom(selected.Text, items);
             Form parentForm = this.FindForm();
             if (parentForm != null)
             {
                 parentForm.Controls.Clear();
                 nextPage.Dock = DockStyle.Fill;
                 parentForm.Controls.Add(nextPage);
+            }*/
+        }
+
+        // 新增種類
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string text = textBox1.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                MessageBox.Show("請輸入種類名稱！");
+                return;
             }
+
+            treeView1.Nodes.Add(new TreeNode(text));
+            SaveTreeViewToTextFile();
+            textBox1.Clear();
+
+            // 規則：新增「類別」→ 全部收起
+            treeView1.CollapseAll();
+        }
+
+        // 新增選項
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("請先選取一個種類！");
+                return;
+            }
+
+            TreeNode parent = treeView1.SelectedNode;
+
+            if (parent.Parent != null)
+            {
+                MessageBox.Show("請選取種類而不是選項！");
+                return;
+            }
+
+            string text = textBox1.Text.Trim();
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                MessageBox.Show("請輸入選項名稱！");
+                return;
+            }
+
+            parent.Nodes.Add(new TreeNode(text));
+            SaveTreeViewToTextFile();
+            textBox1.Clear();
+
+            // 規則：新增「選項」→ 全部收回 → 只展開該類別
+            treeView1.CollapseAll();
+            parent.Expand();
+        }
+
+        // 刪除
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("請選取要刪除的項目！");
+                return;
+            }
+
+            TreeNode node = treeView1.SelectedNode;
+
+            // 如果是類別（parent == null）
+            if (node.Parent == null)
+            {
+                // 刪除類別
+                node.Remove();
+                SaveTreeViewToTextFile();
+
+                // 規則：刪除「類別」→ 全部收起
+                treeView1.CollapseAll();
+            }
+            else
+            {
+                // 刪除選項
+                TreeNode parent = node.Parent;
+                node.Remove();
+                SaveTreeViewToTextFile();
+
+                // 規則：刪除「選項」→ 全部收起 → 展開它原本的類別
+                treeView1.CollapseAll();
+                parent.Expand();
+            }
+        }
+
+        // 修改
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode == null)
+            {
+                MessageBox.Show("請先選取要修改的項目！");
+                return;
+            }
+
+            string newText = textBox1.Text.Trim();
+            if (string.IsNullOrWhiteSpace(newText))
+            {
+                MessageBox.Show("請輸入新名稱！");
+                return;
+            }
+
+            TreeNode node = treeView1.SelectedNode;
+
+            node.Text = newText;
+            SaveTreeViewToTextFile();
+            textBox1.Clear();
+
+            // 先收起全部
+            treeView1.CollapseAll();
+
+            if (node.Parent != null)
+            {
+                // 修改「選項」→ 展開父類別
+                node.Parent.Expand();
+            }
+
+            //MessageBox.Show("已成功修改！");
         }
     }
 }

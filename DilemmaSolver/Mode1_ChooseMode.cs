@@ -7,14 +7,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DilemmaSolver
 {
     public partial class Mode1_ChooseMode: UserControl
     {
+        public event Action<int> Switch_to_EachMood;
+        public event Action Switch_to_MainPage;
+
         public Mode1_ChooseMode()
         {
             InitializeComponent();
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Choose_Mood.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Switch_to_EachMood?.Invoke(0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Switch_to_EachMood?.Invoke(1);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Switch_to_EachMood?.Invoke(2);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Switch_to_EachMood?.Invoke(3);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Switch_to_MainPage?.Invoke();
         }
     }
 }
