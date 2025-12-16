@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -24,6 +25,12 @@ namespace DilemmaSolver
 
             // Subscribe to the SpinCompleted event / 訂閱 SpinCompleted 事件
             spinWheelControl1.SpinCompleted += WheelControl1_SpinCompleted;
+            spinWheelControl1.BackColor = Color.White;
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Spin_wheel_screen.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public void SetData(string selectedList, List<string> selectedItems)

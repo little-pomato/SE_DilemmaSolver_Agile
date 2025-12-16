@@ -33,7 +33,6 @@
             this.btnSpin = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
             this.spinWheelControl1 = new DilemmaSolver.SpinWheelControl();
-            this.mainPage1 = new DilemmaSolver.MainPage();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -51,6 +50,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.White;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(965, 20);
             this.lblTitle.Name = "lblTitle";
@@ -72,6 +72,7 @@
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
+            this.lblInfo.BackColor = System.Drawing.Color.White;
             this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblInfo.Location = new System.Drawing.Point(967, 425);
             this.lblInfo.Name = "lblInfo";
@@ -86,13 +87,6 @@
             this.spinWheelControl1.Name = "spinWheelControl1";
             this.spinWheelControl1.Size = new System.Drawing.Size(595, 492);
             this.spinWheelControl1.TabIndex = 20;
-            // 
-            // mainPage1
-            // 
-            this.mainPage1.Location = new System.Drawing.Point(512, 445);
-            this.mainPage1.Name = "mainPage1";
-            this.mainPage1.Size = new System.Drawing.Size(8, 8);
-            this.mainPage1.TabIndex = 19;
             // 
             // button1
             // 
@@ -112,7 +106,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.spinWheelControl1);
-            this.Controls.Add(this.mainPage1);
             this.Controls.Add(this.btnSpin);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.button7);

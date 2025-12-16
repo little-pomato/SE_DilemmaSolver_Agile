@@ -26,6 +26,11 @@ namespace DilemmaSolver
             //string filePath = "D:\\下載(C)\\SE_DilemmaSolver-Mode1_waterfall\\DilemmaSolver\\list.txt";
             LoadTreeViewFromTextFile(filePath);
 
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Add_list.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+
             // 顯示調整
             treeView1.DrawMode = TreeViewDrawMode.OwnerDrawText;
             treeView1.DrawNode += treeView1_DrawNode;
@@ -44,11 +49,6 @@ namespace DilemmaSolver
             LoadTreeViewFromTextFile(filePath);
 
             // AfterSelect 事件綁定 (+=)
-        }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-           
         }
 
         private void LoadTreeViewFromTextFile(string filePath)

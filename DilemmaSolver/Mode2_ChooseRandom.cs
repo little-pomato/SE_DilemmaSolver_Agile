@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -30,6 +31,11 @@ namespace DilemmaSolver
             treeView1.DrawMode = TreeViewDrawMode.OwnerDrawText;
             treeView1.DrawNode += treeView1_DrawNode;
             treeView1.ItemHeight = 28;
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Choose_random.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public void SetData(string selectedList, List<string> selectedItems)

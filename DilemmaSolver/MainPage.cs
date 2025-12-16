@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -17,7 +18,12 @@ namespace DilemmaSolver
         
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Choose_mode.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
         
         private void button1_Click(object sender, EventArgs e)

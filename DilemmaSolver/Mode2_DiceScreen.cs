@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -26,6 +27,11 @@ namespace DilemmaSolver
             lblTotal.Text = "Total: -"; // Initial text for total label / 總數標籤的初始文字
             btnRoll.Text = "Roll / 擲骰子";
             lblInfo.Text = "請擲骰子來決定";
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Dice_screen.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public void SetData(string selectedList, List<string> selectedItems)

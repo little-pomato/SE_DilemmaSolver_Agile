@@ -39,6 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("新細明體", 40F);
             this.label1.Location = new System.Drawing.Point(376, 190);
             this.label1.Name = "label1";

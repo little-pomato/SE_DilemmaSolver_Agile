@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -27,6 +28,11 @@ namespace DilemmaSolver
             lblCoinText.Text = "";                 // No result yet / 尚未有結果
             lblInfo.Text = "Result / 結果";
             btnFlip.Text = "Flip / 擲硬幣";         // Initial text / 初始文字
+
+            string imagePath = Path.Combine(Application.StartupPath, "Images", "Coin_screen.jpg");
+
+            this.BackgroundImage = Image.FromFile(imagePath);
+            this.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public void SetData(string selectedList, List<string> selectedItems)

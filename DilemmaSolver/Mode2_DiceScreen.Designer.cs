@@ -52,6 +52,7 @@
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
+            this.lblTotal.BackColor = System.Drawing.Color.White;
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTotal.Location = new System.Drawing.Point(756, 365);
             this.lblTotal.Name = "lblTotal";
@@ -84,6 +85,7 @@
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
+            this.lblInfo.BackColor = System.Drawing.Color.White;
             this.lblInfo.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lblInfo.Location = new System.Drawing.Point(758, 435);
             this.lblInfo.Name = "lblInfo";

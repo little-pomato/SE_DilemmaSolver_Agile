@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection.Emit;
+using System.IO;
 
 namespace DilemmaSolver
 {
@@ -28,28 +29,48 @@ namespace DilemmaSolver
         public void SetMood(int moodId)
         {
             currentMood = moodId;
-           
+            string imagePath;
             switch (moodId)
             {
                 case 0:
                     CurrentMood = new Mode1_Happy();
                     label2.Text = $"{CurrentMood.Name} :D";
+                    imagePath = Path.Combine(Application.StartupPath, "Images", "Each_mood_happy.jpg");
+
+                    this.BackgroundImage = Image.FromFile(imagePath);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
                 case 1:
                     CurrentMood = new Mode1_Boring();
                     label2.Text = $"{CurrentMood.Name} :|";
+                    imagePath = Path.Combine(Application.StartupPath, "Images", "Each_mood_boring.jpg");
+
+                    this.BackgroundImage = Image.FromFile(imagePath);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
                 case 2:
                     CurrentMood = new Mode1_Bad();
                     label2.Text = $"{CurrentMood.Name} :(";
+                    imagePath = Path.Combine(Application.StartupPath, "Images", "Each_mood_bad.jpg");
+
+                    this.BackgroundImage = Image.FromFile(imagePath);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
                 case 3:
                     CurrentMood = new Mode1_Angry();
                     label2.Text = $"{CurrentMood.Name} #-_-";
+                    imagePath = Path.Combine(Application.StartupPath, "Images", "Each_mood_angry.jpg");
+
+                    this.BackgroundImage = Image.FromFile(imagePath);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
                 default:
                     CurrentMood = new Mode1_Happy();
                     label2.Text = $"{CurrentMood.Name} :D";
+                    imagePath = Path.Combine(Application.StartupPath, "Images", "Each_mood_happy.jpg");
+
+                    this.BackgroundImage = Image.FromFile(imagePath);
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
                     break;
             }
 
