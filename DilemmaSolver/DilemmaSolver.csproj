@@ -53,7 +53,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Mode1_Models.cs" />
-    <Compile Include="Mode2_AddList.cs" />
+    <Compile Include="Mode2_AddList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Mode2_AddList.Designer.cs">
       <DependentUpon>Mode2_AddList.cs</DependentUpon>
     </Compile>

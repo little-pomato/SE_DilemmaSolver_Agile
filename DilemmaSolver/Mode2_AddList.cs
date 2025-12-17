@@ -14,63 +14,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DilemmaSolver
 {
-    public class DilemmaListModel
-    {
-        public List<DilemmaCategory> Categories { get; } = new List<DilemmaCategory>();
-
-        public TreeEditResult AddCategory(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                return TreeEditResult.NoInput;
-
-            Categories.Add(new DilemmaCategory(name.Trim()));
-            return TreeEditResult.Success;
-        }
-
-        public TreeEditResult AddItem(string categoryName, string item)
-        {
-            if (string.IsNullOrWhiteSpace(item))
-                return TreeEditResult.NoInput;
-
-            var category = Categories.FirstOrDefault(c => c.Name == categoryName);
-            if (category == null)
-                return TreeEditResult.NoSelection;
-
-            category.Items.Add(item.Trim());
-            return TreeEditResult.Success;
-        }
-
-        public TreeEditResult DeleteCategory(string categoryName)
-        {
-            if (Categories.Count == 1)
-                return TreeEditResult.LastCategoryCannotDelete;
-
-            Categories.RemoveAll(c => c.Name == categoryName);
-            return TreeEditResult.Success;
-        }
-    }
-
-    public class DilemmaCategory
-    {
-        public string Name { get; private set; }
-
-        public List<string> Items { get; } = new List<string>();
-
-        public DilemmaCategory(string name)
-        {
-            Name = name;
-        }
-
-        public TreeEditResult Rename(string newName)
-        {
-            if (string.IsNullOrWhiteSpace(newName))
-                return TreeEditResult.NoInput;
-
-            Name = newName.Trim();
-            return TreeEditResult.Success;
-        }
-    }
-
     public partial class Mode2_AddList: UserControl
     {
         public event Action<string, List<string>> Switch_to_ChooseRandom;
@@ -234,6 +177,7 @@ namespace DilemmaSolver
 
         }
 
+        // 選取清單
         private void button5_Click(object sender, EventArgs e)
         {
             // 是否有選中
@@ -252,10 +196,10 @@ namespace DilemmaSolver
                 return;
             }
 
-            // 類別裡沒有任何項目
-            if (selected.Nodes.Count == 0)
+            // 類別裡沒有足夠項目
+            if (selected.Nodes.Count < 2)
             {
-                MessageBox.Show("此清單尚未新增任何項目，請選擇有項目的清單！");
+                MessageBox.Show("此清單至少需要兩個項目才能進行隨機選擇！");
                 return;
             }
 
@@ -464,6 +408,63 @@ namespace DilemmaSolver
                     node.Parent?.Expand();
                     break;
             }
+        }
+    }
+
+    public class DilemmaListModel
+    {
+        public List<DilemmaCategory> Categories { get; } = new List<DilemmaCategory>();
+
+        public TreeEditResult AddCategory(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return TreeEditResult.NoInput;
+
+            Categories.Add(new DilemmaCategory(name.Trim()));
+            return TreeEditResult.Success;
+        }
+
+        public TreeEditResult AddItem(string categoryName, string item)
+        {
+            if (string.IsNullOrWhiteSpace(item))
+                return TreeEditResult.NoInput;
+
+            var category = Categories.FirstOrDefault(c => c.Name == categoryName);
+            if (category == null)
+                return TreeEditResult.NoSelection;
+
+            category.Items.Add(item.Trim());
+            return TreeEditResult.Success;
+        }
+
+        public TreeEditResult DeleteCategory(string categoryName)
+        {
+            if (Categories.Count == 1)
+                return TreeEditResult.LastCategoryCannotDelete;
+
+            Categories.RemoveAll(c => c.Name == categoryName);
+            return TreeEditResult.Success;
+        }
+    }
+
+    public class DilemmaCategory
+    {
+        public string Name { get; private set; }
+
+        public List<string> Items { get; } = new List<string>();
+
+        public DilemmaCategory(string name)
+        {
+            Name = name;
+        }
+
+        public TreeEditResult Rename(string newName)
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+                return TreeEditResult.NoInput;
+
+            Name = newName.Trim();
+            return TreeEditResult.Success;
         }
     }
 }
