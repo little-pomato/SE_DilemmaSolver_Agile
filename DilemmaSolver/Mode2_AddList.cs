@@ -1,17 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
+using System.Xml.Linq;
+using static DilemmaSolver.Mode2_AddList;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DilemmaSolver
 {
+    public class DilemmaListModel
+    {
+        public List<DilemmaCategory> Categories { get; } = new List<DilemmaCategory>();
+
+        public TreeEditResult AddCategory(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return TreeEditResult.NoInput;
+
+            Categories.Add(new DilemmaCategory(name.Trim()));
+            return TreeEditResult.Success;
+        }
+
+        public TreeEditResult AddItem(string categoryName, string item)
+        {
+            if (string.IsNullOrWhiteSpace(item))
+                return TreeEditResult.NoInput;
+
+            var category = Categories.FirstOrDefault(c => c.Name == categoryName);
+            if (category == null)
+                return TreeEditResult.NoSelection;
+
+            category.Items.Add(item.Trim());
+            return TreeEditResult.Success;
+        }
+
+        public TreeEditResult DeleteCategory(string categoryName)
+        {
+            if (Categories.Count == 1)
+                return TreeEditResult.LastCategoryCannotDelete;
+
+            Categories.RemoveAll(c => c.Name == categoryName);
+            return TreeEditResult.Success;
+        }
+    }
+
+    public class DilemmaCategory
+    {
+        public string Name { get; private set; }
+
+        public List<string> Items { get; } = new List<string>();
+
+        public DilemmaCategory(string name)
+        {
+            Name = name;
+        }
+
+        public TreeEditResult Rename(string newName)
+        {
+            if (string.IsNullOrWhiteSpace(newName))
+                return TreeEditResult.NoInput;
+
+            Name = newName.Trim();
+            return TreeEditResult.Success;
+        }
+    }
+
     public partial class Mode2_AddList: UserControl
     {
         public event Action<string, List<string>> Switch_to_ChooseRandom;
@@ -19,6 +78,7 @@ namespace DilemmaSolver
         private string filePath = Path.GetFullPath(
             Path.Combine(Application.StartupPath, @"..\..\list.txt")
         );
+        private DilemmaListModel model = new DilemmaListModel();
 
         public Mode2_AddList()
         {
@@ -63,6 +123,7 @@ namespace DilemmaSolver
         private void LoadTreeViewFromTextFile(string filePath)
         {
             treeView1.Nodes.Clear();
+            model.Categories.Clear();
 
             try
             {
@@ -94,6 +155,7 @@ namespace DilemmaSolver
 
                     // 第0項是種類
                     string parentText = parts[0];
+                    model.Categories.Add(new DilemmaCategory(parentText));
                     TreeNode parentNode = new TreeNode(parentText);
                     treeView1.Nodes.Add(parentNode);
 
@@ -101,6 +163,7 @@ namespace DilemmaSolver
                     for (int i = 1; i < parts.Length; i++)
                     {
                         string childText = parts[i];
+                        model.Categories.Last().Items.Add(childText);
                         parentNode.Nodes.Add(new TreeNode(childText));
                     }
                 }
@@ -209,8 +272,9 @@ namespace DilemmaSolver
 
         private TreeEditResult TryAddCategory(string rawText)
         {
-            if (string.IsNullOrWhiteSpace(rawText))
-                return TreeEditResult.NoInput;
+            var result = model.AddCategory(rawText);
+            if (result != TreeEditResult.Success)
+                return result;
 
             treeView1.Nodes.Add(new TreeNode(rawText.Trim()));
             SaveTreeViewToTextFile();
@@ -245,8 +309,9 @@ namespace DilemmaSolver
             if (parent.Parent != null)
                 return TreeEditResult.NotCategory;
 
-            if (string.IsNullOrWhiteSpace(rawText))
-                return TreeEditResult.NoInput;
+            var result = model.AddItem(parent.Text, rawText);
+            if (result != TreeEditResult.Success)
+                return result;
 
             newNode = new TreeNode(rawText.Trim());
             parent.Nodes.Add(newNode);
@@ -296,6 +361,7 @@ namespace DilemmaSolver
                 if (treeView1.Nodes.Count == 1)
                     return TreeEditResult.LastCategoryCannotDelete;
 
+                model.DeleteCategory(node.Text);
                 node.Remove();
             }
             else
@@ -332,16 +398,46 @@ namespace DilemmaSolver
 
         private TreeEditResult TryRenameSelectedNode(string rawText, out TreeNode node)
         {
-            node = null;
-
-            if (treeView1.SelectedNode == null)
+            node = treeView1.SelectedNode;
+            if (node == null)
                 return TreeEditResult.NoSelection;
 
-            if (string.IsNullOrWhiteSpace(rawText))
-                return TreeEditResult.NoInput;
+            TreeNode selectedNode = node;
 
-            node = treeView1.SelectedNode;
-            node.Text = rawText.Trim();
+            // ===== 改「類別」 =====
+            if (node.Parent == null)
+            {
+                var category = model.Categories
+                    .FirstOrDefault(c => c.Name == selectedNode.Text);
+
+                if (category == null)
+                    return TreeEditResult.NoSelection;
+
+                var result = category.Rename(rawText); // 空字串由 domain 判斷
+                if (result != TreeEditResult.Success)
+                    return result;
+
+                node.Text = category.Name;
+            }
+            // ===== 改「項目」 =====
+            else
+            {
+                var parentCategory = model.Categories
+                    .FirstOrDefault(c => c.Name == selectedNode.Parent.Text);
+
+                if (parentCategory == null)
+                    return TreeEditResult.NoSelection;
+
+                int index = parentCategory.Items.IndexOf(node.Text);
+                if (index == -1)
+                    return TreeEditResult.NoSelection;
+
+                if (string.IsNullOrWhiteSpace(rawText))
+                    return TreeEditResult.NoInput; // item 的空值判斷（暫時寫這裡）
+
+                parentCategory.Items[index] = rawText.Trim();
+                node.Text = rawText.Trim();
+            }
 
             SaveTreeViewToTextFile();
             return TreeEditResult.Success;
