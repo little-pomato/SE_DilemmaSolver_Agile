@@ -36,7 +36,6 @@ D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.SpinWheelCont
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.Start.resources
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.exe
 D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.pdb
-D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.exe.config
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\bin\Debug\Images\bookstore.jpg
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\bin\Debug\Images\card_back.jpg
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\bin\Debug\Images\cleaning.jpg
@@ -75,3 +74,16 @@ D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\obj\Debug\DilemmaSolver.csproj.CoreCompileInputs.cache
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\obj\Debug\DilemmaSolver.exe
 D:\uesr\Desktop\大學課程\大三上\軟體工程\Final\SE_DilemmaSolver_Agile-listAndItem(1)\DilemmaSolver\obj\Debug\DilemmaSolver.pdb
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Start.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Add_list.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Choose_mode.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Choose_mood.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Choose_random.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Coin_screen.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Dice_screen.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Each_mood_angry.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Each_mood_bad.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Each_mood_boring.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Each_mood_happy.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\bin\Debug\Images\Spin_wheel_screen.jpg
+D:\SE\SE_DilemmaSolver_Agile\DilemmaSolver\obj\Debug\DilemmaSolver.exe.config
