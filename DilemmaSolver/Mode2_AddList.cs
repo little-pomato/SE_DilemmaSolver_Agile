@@ -38,6 +38,15 @@ namespace DilemmaSolver
             
         }
 
+        public enum TreeEditResult
+        {
+            Success,
+            NoInput,
+            NoSelection,
+            NotCategory,
+            LastCategoryCannotDelete
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             Switch_to_MainPage?.Invoke();
@@ -198,131 +207,167 @@ namespace DilemmaSolver
             Switch_to_ChooseRandom?.Invoke(selectedText, items);
         }
 
+        private TreeEditResult TryAddCategory(string rawText)
+        {
+            if (string.IsNullOrWhiteSpace(rawText))
+                return TreeEditResult.NoInput;
+
+            treeView1.Nodes.Add(new TreeNode(rawText.Trim()));
+            SaveTreeViewToTextFile();
+
+            return TreeEditResult.Success;
+        }
+
         // 新增種類
         private void button2_Click(object sender, EventArgs e)
         {
-            string text = textBox1.Text.Trim();
+            var result = TryAddCategory(textBox1.Text);
 
-            if (string.IsNullOrWhiteSpace(text))
+            if (result == TreeEditResult.NoInput)
             {
                 MessageBox.Show("請輸入種類名稱！");
                 return;
             }
 
-            treeView1.Nodes.Add(new TreeNode(text));
-            SaveTreeViewToTextFile();
             textBox1.Clear();
-
-            // 規則：新增「類別」→ 全部收起
             treeView1.CollapseAll();
+        }
+
+        private TreeEditResult TryAddItem(string rawText, out TreeNode newNode)
+        {
+            newNode = null;
+
+            if (treeView1.SelectedNode == null)
+                return TreeEditResult.NoSelection;
+
+            TreeNode parent = treeView1.SelectedNode;
+
+            if (parent.Parent != null)
+                return TreeEditResult.NotCategory;
+
+            if (string.IsNullOrWhiteSpace(rawText))
+                return TreeEditResult.NoInput;
+
+            newNode = new TreeNode(rawText.Trim());
+            parent.Nodes.Add(newNode);
+
+            SaveTreeViewToTextFile();
+            return TreeEditResult.Success;
         }
 
         // 新增選項
         private void button3_Click(object sender, EventArgs e)
         {
+            var result = TryAddItem(textBox1.Text, out TreeNode newNode);
+
+            switch (result)
+            {
+                case TreeEditResult.NoSelection:
+                    MessageBox.Show("請先選取一個種類！");
+                    break;
+
+                case TreeEditResult.NotCategory:
+                    MessageBox.Show("請選取種類而不是選項！");
+                    break;
+
+                case TreeEditResult.NoInput:
+                    MessageBox.Show("請輸入選項名稱！");
+                    break;
+
+                case TreeEditResult.Success:
+                    textBox1.Clear();
+                    treeView1.CollapseAll();
+                    newNode.Parent.Expand();
+                    break;
+            }
+        }
+
+        private TreeEditResult TryDeleteSelectedNode(out TreeNode parentNode)
+        {
+            parentNode = null;
+
             if (treeView1.SelectedNode == null)
+                return TreeEditResult.NoSelection;
+
+            TreeNode node = treeView1.SelectedNode;
+
+            if (node.Parent == null)
             {
-                MessageBox.Show("請先選取一個種類！");
-                return;
+                if (treeView1.Nodes.Count == 1)
+                    return TreeEditResult.LastCategoryCannotDelete;
+
+                node.Remove();
+            }
+            else
+            {
+                parentNode = node.Parent;
+                node.Remove();
             }
 
-            TreeNode parent = treeView1.SelectedNode;
-
-            if (parent.Parent != null)
-            {
-                MessageBox.Show("請選取種類而不是選項！");
-                return;
-            }
-
-            string text = textBox1.Text.Trim();
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                MessageBox.Show("請輸入選項名稱！");
-                return;
-            }
-
-            parent.Nodes.Add(new TreeNode(text));
             SaveTreeViewToTextFile();
-            textBox1.Clear();
-
-            // 規則：新增「選項」→ 全部收回 → 只展開該類別
-            treeView1.CollapseAll();
-            parent.Expand();
+            return TreeEditResult.Success;
         }
 
         // 刪除
         private void button6_Click(object sender, EventArgs e)
         {
+            var result = TryDeleteSelectedNode(out TreeNode parent);
+
+            switch (result)
+            {
+                case TreeEditResult.NoSelection:
+                    MessageBox.Show("請選取要刪除的項目！");
+                    break;
+
+                case TreeEditResult.LastCategoryCannotDelete:
+                    MessageBox.Show("至少需要保留一個類別！");
+                    break;
+
+                case TreeEditResult.Success:
+                    treeView1.CollapseAll();
+                    parent?.Expand();
+                    break;
+            }
+        }
+
+        private TreeEditResult TryRenameSelectedNode(string rawText, out TreeNode node)
+        {
+            node = null;
+
             if (treeView1.SelectedNode == null)
-            {
-                MessageBox.Show("請選取要刪除的項目！");
-                return;
-            }
+                return TreeEditResult.NoSelection;
 
-            TreeNode node = treeView1.SelectedNode;
+            if (string.IsNullOrWhiteSpace(rawText))
+                return TreeEditResult.NoInput;
 
-            // 如果是類別（parent == null）
-            if (node.Parent == null)
-            {
-                // 只剩一個類別時不可刪
-                if (treeView1.Nodes.Count == 1)
-                {
-                    MessageBox.Show("至少需要保留一個類別，無法刪除最後一個類別！");
-                    return;
-                }
+            node = treeView1.SelectedNode;
+            node.Text = rawText.Trim();
 
-                // 刪除類別
-                node.Remove();
-                SaveTreeViewToTextFile();
-
-                // 規則：刪除「類別」→ 全部收起
-                treeView1.CollapseAll();
-            }
-            else
-            {
-                // 刪除選項
-                TreeNode parent = node.Parent;
-                node.Remove();
-                SaveTreeViewToTextFile();
-
-                // 規則：刪除「選項」→ 全部收起 → 展開原本的類別
-                treeView1.CollapseAll();
-                parent.Expand();
-            }
+            SaveTreeViewToTextFile();
+            return TreeEditResult.Success;
         }
 
         // 修改
         private void button8_Click(object sender, EventArgs e)
         {
-            if (treeView1.SelectedNode == null)
+            var result = TryRenameSelectedNode(textBox1.Text, out TreeNode node);
+
+            switch (result)
             {
-                MessageBox.Show("請先選取要修改的項目！");
-                return;
+                case TreeEditResult.NoSelection:
+                    MessageBox.Show("請先選取要修改的項目！");
+                    break;
+
+                case TreeEditResult.NoInput:
+                    MessageBox.Show("請輸入新名稱！");
+                    break;
+
+                case TreeEditResult.Success:
+                    textBox1.Clear();
+                    treeView1.CollapseAll();
+                    node.Parent?.Expand();
+                    break;
             }
-
-            string newText = textBox1.Text.Trim();
-            if (string.IsNullOrWhiteSpace(newText))
-            {
-                MessageBox.Show("請輸入新名稱！");
-                return;
-            }
-
-            TreeNode node = treeView1.SelectedNode;
-
-            node.Text = newText;
-            SaveTreeViewToTextFile();
-            textBox1.Clear();
-
-            // 先收起全部
-            treeView1.CollapseAll();
-
-            if (node.Parent != null)
-            {
-                // 修改「選項」→ 展開父類別
-                node.Parent.Expand();
-            }
-
-            //MessageBox.Show("已成功修改！");
         }
     }
 }
