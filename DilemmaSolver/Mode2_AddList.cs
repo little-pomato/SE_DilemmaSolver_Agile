@@ -179,26 +179,23 @@ namespace DilemmaSolver
                 MessageBox.Show("請選取一個類別，而不是項目！");
                 return;
             }
-            // 收集子項
 
+            // 類別裡沒有任何項目
+            if (selected.Nodes.Count == 0)
+            {
+                MessageBox.Show("此清單尚未新增任何項目，請選擇有項目的清單！");
+                return;
+            }
+
+            // 收集子項
             List<string> items = new List<string>();
             foreach (TreeNode child in selected.Nodes)
             {
                 items.Add(child.Text);
             }
 
-            string selectedText = treeView1.SelectedNode.Text;
+            string selectedText = selected.Text;
             Switch_to_ChooseRandom?.Invoke(selectedText, items);
-
-            // 跳到Mode2_ChooseRandom 傳入資料
-            /*Mode2_ChooseRandom nextPage = new Mode2_ChooseRandom(selected.Text, items);
-            Form parentForm = this.FindForm();
-            if (parentForm != null)
-            {
-                parentForm.Controls.Clear();
-                nextPage.Dock = DockStyle.Fill;
-                parentForm.Controls.Add(nextPage);
-            }*/
         }
 
         // 新增種類
@@ -267,6 +264,13 @@ namespace DilemmaSolver
             // 如果是類別（parent == null）
             if (node.Parent == null)
             {
+                // 只剩一個類別時不可刪
+                if (treeView1.Nodes.Count == 1)
+                {
+                    MessageBox.Show("至少需要保留一個類別，無法刪除最後一個類別！");
+                    return;
+                }
+
                 // 刪除類別
                 node.Remove();
                 SaveTreeViewToTextFile();
@@ -281,7 +285,7 @@ namespace DilemmaSolver
                 node.Remove();
                 SaveTreeViewToTextFile();
 
-                // 規則：刪除「選項」→ 全部收起 → 展開它原本的類別
+                // 規則：刪除「選項」→ 全部收起 → 展開原本的類別
                 treeView1.CollapseAll();
                 parent.Expand();
             }
