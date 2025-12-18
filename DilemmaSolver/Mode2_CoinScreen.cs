@@ -21,18 +21,32 @@ namespace DilemmaSolver
         private List<string> _items;   // Should be 2 items / 應該是 2 個項目
         private Random _rng = new Random(); // Random number generator / 隨機數生成器
         private int _flipCount = 0; // Counter for the number of flips / 擲硬幣次數的計數器
+
+        private Image coinHead;
+        private Image coinTail;
+
         public Mode2_CoinScreen()
         {
             InitializeComponent();
 
             lblCoinText.Text = "";                 // No result yet / 尚未有結果
-            lblInfo.Text = "Result / 結果";
+            lblInfo.Text = "請擲硬幣來決定";
             btnFlip.Text = "Flip / 擲硬幣";         // Initial text / 初始文字
 
             string imagePath = Path.Combine(Application.StartupPath, "Images", "Coin_screen.jpg");
 
             this.BackgroundImage = Image.FromFile(imagePath);
             this.BackgroundImageLayout = ImageLayout.Stretch;
+
+            // load coin images
+            coinHead = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "coin_head.png"));
+            coinTail = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "coin_tail.png"));
+
+            picCoin.SizeMode = PictureBoxSizeMode.Zoom;
+            picCoin.Image = null;
+
+            // old label not used
+            lblCoinText.Visible = false;
         }
 
         public void SetData(string selectedList, List<string> selectedItems)
@@ -42,19 +56,17 @@ namespace DilemmaSolver
 
             lblInfo.Text = "Result / 結果";
             btnFlip.Text = "Flip / 擲硬幣";         // Initial text / 初始文字
+            picCoin.Image = null;      // Initial text / 初始文字
         }
 
-        // // round shape / 圓形
-        protected override void OnResize(EventArgs e)
+        // Coin animation (single flip)
+        private async Task PlayCoinFlipAnimation()
         {
-            base.OnResize(e);
-
-            if (lblCoinText == null) return; // Exit if the label doesn't exist yet / 如果標籤尚不存在則退出
-
-            // Create a circular region for the label / 為標籤創建一個圓形區域
-            GraphicsPath gp = new GraphicsPath();
-            gp.AddEllipse(lblCoinText.ClientRectangle);
-            lblCoinText.Region = new Region(gp);
+            for (int i = 0; i < 6; i++)
+            {
+                picCoin.Image = (i % 2 == 0) ? coinHead : coinTail;
+                await Task.Delay(80);
+            }
         }
 
         private void Mode2_CoinScreen_Load(object sender, EventArgs e)
@@ -67,8 +79,22 @@ namespace DilemmaSolver
             Switch_to_MainPage?.Invoke();
         }
 
+        private CoinFlipEngine _engine = new CoinFlipEngine();
         private void btnFlip_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var result = _engine.GetFlipResult(_items);
+
+                picCoin.Image = (result.Index == 0) ? coinHead : coinTail;
+                lblInfo.Text = $"您的選擇是：\n【{result.ChosenText}】";
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("硬幣模式需要至少兩個項目喔！");
+            }
+
+            /*
             // Check if there are at least 2 items/ 檢查是否至少有 2 個項目
             if (_items == null || _items.Count < 2)
             {
@@ -94,11 +120,42 @@ namespace DilemmaSolver
 
 
             // Mode2_Result result = new Mode2_Result(_listName, "硬幣", chosen);
+            */
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Switch_to_ChooseRandom?.Invoke();
         }
+    }
+}
+
+public class FlipResult
+{
+    public string ChosenText { get; set; }
+    public int Index { get; set; }
+}
+
+public class CoinFlipEngine
+{
+    private Random _rng;
+
+    public CoinFlipEngine(Random rng = null)
+    {
+        _rng = rng ?? new Random();
+    }
+
+    public FlipResult GetFlipResult(List<string> items)
+    {
+        if (items == null || items.Count < 2)
+            throw new ArgumentException("需要至少兩個項目");
+
+        int index = _rng.Next(0, 2); 
+
+        return new FlipResult
+        {
+            ChosenText = items[index],
+            Index = index
+        };
     }
 }

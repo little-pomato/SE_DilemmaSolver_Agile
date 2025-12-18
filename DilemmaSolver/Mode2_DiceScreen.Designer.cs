@@ -34,6 +34,8 @@
             this.button7 = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.picDice = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picDice)).BeginInit();
             this.SuspendLayout();
             // 
             // lblDice
@@ -65,7 +67,7 @@
             this.btnRoll.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnRoll.Location = new System.Drawing.Point(763, 301);
             this.btnRoll.Name = "btnRoll";
-            this.btnRoll.Size = new System.Drawing.Size(137, 40);
+            this.btnRoll.Size = new System.Drawing.Size(269, 40);
             this.btnRoll.TabIndex = 3;
             this.btnRoll.Text = "Roll / 擲骰子";
             this.btnRoll.UseVisualStyleBackColor = true;
@@ -105,10 +107,20 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // picDice
+            // 
+            this.picDice.Location = new System.Drawing.Point(105, 150);
+            this.picDice.Name = "picDice";
+            this.picDice.Size = new System.Drawing.Size(561, 440);
+            this.picDice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDice.TabIndex = 18;
+            this.picDice.TabStop = false;
+            // 
             // Mode2_DiceScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.picDice);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.button7);
@@ -117,6 +129,7 @@
             this.Controls.Add(this.lblDice);
             this.Name = "Mode2_DiceScreen";
             this.Size = new System.Drawing.Size(1280, 720);
+            ((System.ComponentModel.ISupportInitialize)(this.picDice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,5 +143,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox picDice;
     }
 }
