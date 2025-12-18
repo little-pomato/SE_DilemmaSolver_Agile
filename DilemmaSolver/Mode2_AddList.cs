@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static DilemmaSolver.Mode2_AddList;
+using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static DilemmaSolver.Mode2_AddList;
 
 namespace DilemmaSolver
 {
@@ -177,7 +176,6 @@ namespace DilemmaSolver
 
         }
 
-        // 選取清單
         private void button5_Click(object sender, EventArgs e)
         {
             // 是否有選中
@@ -348,7 +346,7 @@ namespace DilemmaSolver
 
             TreeNode selectedNode = node;
 
-            // ===== 改「類別」 =====
+            // 改類別
             if (node.Parent == null)
             {
                 var category = model.Categories
@@ -363,7 +361,7 @@ namespace DilemmaSolver
 
                 node.Text = category.Name;
             }
-            // ===== 改「項目」 =====
+            // 改項目
             else
             {
                 var parentCategory = model.Categories
@@ -377,7 +375,7 @@ namespace DilemmaSolver
                     return TreeEditResult.NoSelection;
 
                 if (string.IsNullOrWhiteSpace(rawText))
-                    return TreeEditResult.NoInput; // item 的空值判斷（暫時寫這裡）
+                    return TreeEditResult.NoInput; // item 的空值判斷
 
                 parentCategory.Items[index] = rawText.Trim();
                 node.Text = rawText.Trim();

@@ -1,9 +1,10 @@
 ﻿using Xunit;
-using static DilemmaSolver.Mode2_AddList;
+using DilemmaSolver;
+using TreeEditResult = DilemmaSolve_unitTest.TreeEditResult;
 
-namespace DilemmaSolver.Test
+namespace DilemmaSolve_unitTest
 {
-    public class DilemmaListModelTests
+    public class ListModelTests
     {
         [Fact]
         public void AddCategory_WithValidName_ShouldAddCategory()
@@ -12,7 +13,7 @@ namespace DilemmaSolver.Test
 
             var result = model.AddCategory("Food");
 
-            Assert.Equal(TreeEditResult.Success, result);
+            Assert.Equal((int)TreeEditResult.Success, (int)result);
             Assert.Single(model.Categories);
             Assert.Equal("Food", model.Categories[0].Name);
         }
@@ -24,7 +25,7 @@ namespace DilemmaSolver.Test
 
             var result = model.AddCategory("");
 
-            Assert.Equal(TreeEditResult.NoInput, result);
+            Assert.Equal((int)TreeEditResult.NoInput, (int)result);
             Assert.Empty(model.Categories);
         }
 
@@ -39,7 +40,7 @@ namespace DilemmaSolver.Test
             var result = model.AddItem("Food", "");
 
             // Assert
-            Assert.Equal(TreeEditResult.NoInput, result);
+            Assert.Equal((int)TreeEditResult.NoInput, (int)result);
             Assert.Empty(model.Categories[0].Items);
         }
 
@@ -50,7 +51,7 @@ namespace DilemmaSolver.Test
 
             var result = model.AddItem("Food", "Apple");
 
-            Assert.Equal(TreeEditResult.NoSelection, result);
+            Assert.Equal((int)TreeEditResult.NoSelection, (int)result);
         }
 
         [Fact]
@@ -61,7 +62,7 @@ namespace DilemmaSolver.Test
 
             var result = model.DeleteCategory("Food");
 
-            Assert.Equal(TreeEditResult.LastCategoryCannotDelete, result);
+            Assert.Equal((int)TreeEditResult.LastCategoryCannotDelete, (int)result);
             Assert.Single(model.Categories);
         }
 
@@ -72,7 +73,7 @@ namespace DilemmaSolver.Test
 
             var result = category.Rename("Drink");
 
-            Assert.Equal(TreeEditResult.Success, result);
+            Assert.Equal((int)TreeEditResult.Success, (int)result);
             Assert.Equal("Drink", category.Name);
         }
 
@@ -86,7 +87,7 @@ namespace DilemmaSolver.Test
             var result = category.Rename("");
 
             // Assert
-            Assert.Equal(TreeEditResult.NoInput, result);
+            Assert.Equal((int)TreeEditResult.NoInput, (int)result);
             Assert.Equal("Food", category.Name); // 名稱不應被改掉
         }
     }

@@ -28,24 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblCoinText = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.btnFlip = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.picCoin = new System.Windows.Forms.PictureBox();
+            this.lblCoinText = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.picCoin)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblCoinText
-            // 
-            this.lblCoinText.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.lblCoinText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCoinText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblCoinText.ForeColor = System.Drawing.Color.White;
-            this.lblCoinText.Location = new System.Drawing.Point(99, 146);
-            this.lblCoinText.Name = "lblCoinText";
-            this.lblCoinText.Size = new System.Drawing.Size(682, 445);
-            this.lblCoinText.TabIndex = 1;
-            this.lblCoinText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblInfo
             // 
@@ -92,10 +82,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // picCoin
+            // 
+            this.picCoin.Location = new System.Drawing.Point(99, 146);
+            this.picCoin.Name = "picCoin";
+            this.picCoin.Size = new System.Drawing.Size(682, 445);
+            this.picCoin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCoin.TabIndex = 16;
+            this.picCoin.TabStop = false;
+            // 
+            // lblCoinText
+            // 
+            this.lblCoinText.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.lblCoinText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblCoinText.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.lblCoinText.ForeColor = System.Drawing.Color.White;
+            this.lblCoinText.Location = new System.Drawing.Point(99, 146);
+            this.lblCoinText.Name = "lblCoinText";
+            this.lblCoinText.Size = new System.Drawing.Size(682, 445);
+            this.lblCoinText.TabIndex = 1;
+            this.lblCoinText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Mode2_CoinScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.picCoin);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.btnFlip);
@@ -104,17 +116,18 @@
             this.Name = "Mode2_CoinScreen";
             this.Size = new System.Drawing.Size(1280, 720);
             this.Load += new System.EventHandler(this.Mode2_CoinScreen_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picCoin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblCoinText;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnFlip;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox picCoin;
+        private System.Windows.Forms.Label lblCoinText;
     }
 }
